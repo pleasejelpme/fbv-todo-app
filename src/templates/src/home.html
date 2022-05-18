@@ -1,0 +1,24 @@
+{% extends "src/base.html" %}
+{% block content %}
+{% if request.user.is_authenticated %}
+<table>
+    <tr>
+        <th>Tasks</th>
+    </tr>
+    <a href="{% url 'create' %}">Add new task</a>
+    {% for task in task_list %}
+    <tr>
+        <td>{{ task }}</td>
+        <td><a href="{% url 'detail' task.id %}">Detail</a></td>
+        <td><a href="{% url 'update' task.id %}">Update</a></td>
+        <td><a href="{% url 'delete' task.id %}">Delete</a></td>
+    </tr>
+    {% empty %}
+    <h4>There is no tasks to do</h4>
+    {% endfor %}
+</table>
+{% else %}
+<h3>Please login or create an account</h3>
+{% endif %}
+    
+{% endblock content %}
